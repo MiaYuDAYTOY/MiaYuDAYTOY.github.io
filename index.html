@@ -3,10 +3,430 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mia's Website</title>
+  <title>Mia Yu</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      background: #fffafb;
+      color: #5f4b52;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #ffe1e1;
+    }
+
+    .topbar-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: #ffe5e5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .brand-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #ff9090;
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: #b5959c;
+      margin-top: 2px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 24px;
+      font-size: 14px;
+      color: #7d656c;
+    }
+
+    .nav a:hover {
+      color: #ff9090;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 24px;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 32px;
+    }
+
+    .sidebar {
+      background: #ffffff;
+      border: 1px solid #ffe1e1;
+      border-radius: 30px;
+      padding: 24px;
+      box-shadow: 0 18px 45px rgba(255, 144, 144, 0.12);
+      height: fit-content;
+    }
+
+    .sidebar-inner {
+      text-align: center;
+    }
+
+    .photo-box {
+      width: 176px;
+      height: 208px;
+      margin: 0 auto 20px;
+      border-radius: 28px;
+      overflow: hidden;
+      background: #fff0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-fallback {
+      font-size: 56px;
+      display: none;
+    }
+
+    .name {
+      font-size: 34px;
+      font-weight: 600;
+      font-style: italic;
+      color: #3d3035;
+      margin: 0;
+    }
+
+    .subline {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #9d7f86;
+    }
+
+    .subline + .subline {
+      margin-top: 4px;
+    }
+
+    .intro-list {
+      margin-top: 20px;
+      text-align: left;
+      font-size: 14px;
+      color: #715a61;
+      line-height: 1.9;
+    }
+
+    .button-group {
+      margin-top: 24px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .btn-main,
+    .btn-sub {
+      display: block;
+      padding: 12px 16px;
+      border-radius: 999px;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 600;
+      transition: transform 0.18s ease;
+    }
+
+    .btn-main:hover,
+    .btn-sub:hover,
+    .socials a:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-main {
+      background: #ff9090;
+      color: white;
+      box-shadow: 0 6px 16px rgba(255, 144, 144, 0.18);
+    }
+
+    .btn-sub {
+      border: 1px solid #ffd4d4;
+      background: #fff5f5;
+      color: #ff9090;
+    }
+
+    .socials {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .socials a {
+      border: 1px solid #ffe4e4;
+      background: white;
+      color: #ff9090;
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      box-shadow: 0 3px 10px rgba(255, 144, 144, 0.06);
+      transition: transform 0.18s ease, background 0.18s ease;
+    }
+
+    .socials a:hover {
+      background: #fff7f7;
+    }
+
+    .update {
+      margin-top: 18px;
+      font-size: 12px;
+      color: #c4a1a8;
+    }
+
+    .content-card {
+      overflow: hidden;
+      border-radius: 34px;
+      border: 1px solid #ffe1e1;
+      background: white;
+      box-shadow: 0 22px 55px rgba(255, 144, 144, 0.10);
+    }
+
+    .content-head {
+      padding: 20px 28px;
+      border-bottom: 1px solid #fff0f0;
+      background: linear-gradient(180deg, #fff8f8 0%, #fffdfd 100%);
+    }
+
+    .content-head span {
+      font-size: 12px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #d7a4ad;
+    }
+
+    .content-body {
+      padding: 28px;
+    }
+
+    .content-body p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 2;
+      color: #5f4b52;
+    }
+
+    .content-body p + p {
+      margin-top: 16px;
+    }
+
+    .highlight {
+      color: #ff9090;
+      font-weight: 600;
+    }
+
+    .mini-grid {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .mini-card {
+      border-radius: 26px;
+      border: 1px solid #ffe7e7;
+      padding: 20px;
+    }
+
+    .mini-card.soft {
+      background: #fff7f7;
+    }
+
+    .mini-card.white {
+      background: #fffafa;
+    }
+
+    .mini-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ff9090;
+      letter-spacing: 0.04em;
+    }
+
+    .mini-text {
+      margin-top: 12px;
+      font-size: 14px;
+      line-height: 1.9;
+      color: #715a61;
+    }
+
+    .bottom-note {
+      margin-top: 28px;
+      border: 1px solid #ffd9d9;
+      background: #fff5f5;
+      border-radius: 26px;
+      padding: 16px 20px;
+      font-size: 14px;
+      line-height: 1.9;
+      color: #82656c;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .mini-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .photo-box {
+        width: 170px;
+        height: 200px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Hello, this is my website!</h1>
-  <p>My GitHub Pages site is working.</p>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-icon">🌸</div>
+        <div>
+          <div class="brand-title">MIA YU</div>
+          <div class="brand-subtitle">Personal Website</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <aside class="sidebar">
+      <div class="sidebar-inner">
+        <div class="photo-box">
+          <img
+            src="profile.jpg"
+            alt="Mia Yu"
+            onerror="this.style.display='none'; document.getElementById('photo-fallback').style.display='flex';"
+          />
+          <div class="photo-fallback" id="photo-fallback">🎓</div>
+        </div>
+
+        <h1 class="name">Mia Yu</h1>
+        <div class="subline">Freshwoman at SUFE</div>
+        <div class="subline">Interested in AI Security</div>
+
+        <div class="intro-list">
+          <div>🎀 Studying at SUFE as a first-year student</div>
+          <div>💻 Currently learning AI security and open-source tools</div>
+          <div>🌱 Building my own website and GitHub profile step by step</div>
+        </div>
+
+        <div class="button-group">
+          <a class="btn-main" href="#about">About Me</a>
+          <a class="btn-sub" href="#contact">Contact</a>
+        </div>
+
+        <div class="socials" id="contact">
+          <a href="https://github.com/MiaYuDAYTOY" target="_blank">GitHub</a>
+          <a href="mailto:yyu61965@gmail.com">Email</a>
+        </div>
+
+        <div class="update">Last updated: 2026/04</div>
+      </div>
+    </aside>
+
+    <section class="content-card" id="about">
+      <div class="content-head">
+        <span>About Me</span>
+      </div>
+
+      <div class="content-body">
+        <p>
+          Hi, I'm <span class="highlight">Mia Yu</span>. I am a first-year student at
+          <span class="highlight">SUFE</span>, and I'm currently interested in
+          <span class="highlight">AI security</span>.
+        </p>
+
+        <p>
+          I'm still at the beginning of my journey, so this website is mainly a small personal
+          space to introduce myself and record what I'm learning.
+        </p>
+
+        <p>
+          Right now, I'm learning step by step about open-source projects, AI security, and other
+          topics related to AI systems and security.
+        </p>
+
+        <div class="mini-grid">
+          <div class="mini-card soft">
+            <div class="mini-title">Current Focus</div>
+            <div class="mini-text">
+              AI security, beginner-friendly open-source exploration, and building a clean
+              personal online space.
+            </div>
+          </div>
+
+          <div class="mini-card white">
+            <div class="mini-title">Website Style</div>
+            <div class="mini-text">
+              Soft white and pink tones, simple layout, and a sweet desktop-inspired feeling.
+            </div>
+          </div>
+        </div>
+
+        <div class="bottom-note">
+          This page is intentionally simple and soft. I can keep updating it little by little as I
+          learn more.
+        </div>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
