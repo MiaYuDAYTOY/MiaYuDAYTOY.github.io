@@ -1,252 +1,761 @@
-import { useEffect, useMemo, useState } from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mia Yu</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-export default function PinkPersonalHomepage() {
-  const socials = [
-    { label: "GitHub", href: "https://github.com/MiaYuDAYTOY" },
-    { label: "Email", href: "mailto:yyu61965@gmail.com" },
-  ];
+    html {
+      scroll-behavior: smooth;
+    }
 
-  const gallery = useMemo(
-    () => [
-      "/gallery1.jpg",
-      "/gallery2.jpg",
-      "/gallery3.jpg",
-      "/gallery4.jpg",
-      "/gallery5.jpg",
-      "/gallery6.jpg",
-      "/gallery7.jpg",
-      "/gallery8.jpg",
-      "/gallery9.jpg",
-      "/gallery10.jpg",
-    ],
-    []
-  );
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(255, 215, 225, 0.55), transparent 18%),
+        radial-gradient(circle at 88% 12%, rgba(255, 232, 238, 0.85), transparent 20%),
+        radial-gradient(circle at 75% 82%, rgba(255, 240, 244, 0.9), transparent 18%),
+        linear-gradient(180deg, #fffafb 0%, #fffdfd 100%);
+      color: #5f4b52;
+      overflow-x: hidden;
+    }
 
-  const [current, setCurrent] = useState(0);
-  const [profileImgError, setProfileImgError] = useState(false);
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-  useEffect(() => {
-    if (gallery.length <= 1) return;
+    .floating {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
 
-    const timer = window.setInterval(() => {
-      setCurrent((prev) => (prev + 1) % gallery.length);
-    }, 2600);
+    .blob {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(45px);
+      opacity: 0.55;
+    }
 
-    return () => window.clearInterval(timer);
-  }, [gallery]);
+    .blob-1 {
+      width: 220px;
+      height: 220px;
+      left: -50px;
+      top: 80px;
+      background: #ffd8e2;
+    }
 
-  return (
-    <div className="relative min-h-screen overflow-hidden bg-[#fffafb] text-[#5f4b52]">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-12 top-20 h-44 w-44 rounded-full bg-[#ffdfe6]/60 blur-3xl" />
-        <div className="absolute right-0 top-16 h-56 w-56 rounded-full bg-[#ffeef4] blur-3xl" />
-        <div className="absolute bottom-0 left-1/3 h-52 w-52 rounded-full bg-[#fff1f4] blur-3xl" />
-        <div className="absolute left-8 top-36 text-xl text-[#ffc2cf]">✿</div>
-        <div className="absolute left-16 top-60 text-lg text-[#ffb4c3]">♡</div>
-        <div className="absolute right-10 top-40 text-xl text-[#ffc7d2]">☁</div>
-        <div className="absolute right-24 top-72 text-lg text-[#ffb4c3]">✧</div>
+    .blob-2 {
+      width: 260px;
+      height: 260px;
+      right: -60px;
+      top: 60px;
+      background: #ffeef3;
+    }
+
+    .blob-3 {
+      width: 210px;
+      height: 210px;
+      left: 32%;
+      bottom: 40px;
+      background: #fff1f5;
+    }
+
+    .sparkles {
+      position: absolute;
+      color: #ffb7c6;
+      font-size: 20px;
+      opacity: 0.7;
+      user-select: none;
+    }
+
+    .s1 { left: 40px; top: 180px; }
+    .s2 { left: 72px; top: 250px; }
+    .s3 { right: 56px; top: 220px; }
+    .s4 { right: 92px; top: 310px; }
+    .s5 { right: 150px; bottom: 90px; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #ffe7ea;
+    }
+
+    .topbar-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid #ffdbe3;
+      background: linear-gradient(180deg, #fff6f8 0%, #ffeef3 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 6px 18px rgba(255, 144, 144, 0.08);
+    }
+
+    .brand-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #ff9090;
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: #b5959c;
+      margin-top: 2px;
+      letter-spacing: 0.06em;
+    }
+
+    .nav {
+      display: flex;
+      gap: 24px;
+      font-size: 14px;
+      color: #7d656c;
+    }
+
+    .nav a:hover {
+      color: #ff9090;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 42px 24px;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 32px;
+    }
+
+    .sidebar {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid #ffe6ea;
+      border-radius: 32px;
+      padding: 24px;
+      box-shadow: 0 20px 50px rgba(255, 144, 144, 0.12);
+      height: fit-content;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sidebar::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,247,249,0.25) 100%);
+      pointer-events: none;
+    }
+
+    .sidebar-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .photo-box {
+      width: 184px;
+      height: 216px;
+      margin: 0 auto 20px;
+      border-radius: 30px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #fff6f8 0%, #fff0f3 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ffe2e8;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.95);
+      position: relative;
+      padding: 4px;
+    }
+
+    .photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 26px;
+    }
+
+    .photo-fallback {
+      font-size: 56px;
+      display: none;
+      width: 100%;
+      height: 100%;
+      border-radius: 26px;
+      background: #ffffff;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-badge {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      color: #ff9090;
+      font-size: 12px;
+      box-shadow: 0 4px 10px rgba(255, 144, 144, 0.10);
+    }
+
+    .name {
+      font-size: 34px;
+      font-weight: 600;
+      font-style: italic;
+      letter-spacing: 0.02em;
+      color: #3d3035;
+      margin: 0;
+    }
+
+    .subline {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #9d7f86;
+    }
+
+    .subline + .subline {
+      margin-top: 4px;
+    }
+
+    .intro-list {
+      margin-top: 20px;
+      text-align: left;
+      font-size: 14px;
+      color: #715a61;
+      line-height: 1.9;
+      background: #fff8f9;
+      border: 1px solid #ffe9ec;
+      border-radius: 24px;
+      padding: 14px 16px;
+    }
+
+    .intro-list-inner {
+      display: grid;
+      gap: 6px;
+    }
+
+    .button-group {
+      margin-top: 24px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .btn-main,
+    .btn-sub {
+      display: block;
+      padding: 12px 16px;
+      border-radius: 999px;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 600;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .btn-main:hover,
+    .btn-sub:hover,
+    .socials a:hover,
+    .dots button:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-main {
+      background: #ff9090;
+      color: white;
+      box-shadow: 0 8px 20px rgba(255, 144, 144, 0.22);
+    }
+
+    .btn-sub {
+      border: 1px solid #ffd4d4;
+      background: #fff5f5;
+      color: #ff9090;
+    }
+
+    .socials {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .socials a {
+      border: 1px solid #ffe4e4;
+      background: white;
+      color: #ff9090;
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      box-shadow: 0 3px 10px rgba(255, 144, 144, 0.06);
+      transition: transform 0.18s ease, background 0.18s ease;
+    }
+
+    .socials a:hover {
+      background: #fff7f7;
+    }
+
+    .update {
+      margin-top: 18px;
+      font-size: 12px;
+      color: #c4a1a8;
+    }
+
+    .content-wrap {
+      display: grid;
+      gap: 32px;
+    }
+
+    .content-card {
+      overflow: hidden;
+      border-radius: 36px;
+      border: 1px solid #ffe6ea;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 24px 60px rgba(255, 144, 144, 0.10);
+    }
+
+    .content-head {
+      padding: 20px 28px;
+      border-bottom: 1px solid #fff0f0;
+      background: linear-gradient(180deg, #fff7f9 0%, #fffdfd 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .content-head span {
+      font-size: 12px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #d7a4ad;
+    }
+
+    .head-tag {
+      border: 1px solid #ffe2e8;
+      background: white;
+      color: #ff9090;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    .content-body {
+      padding: 28px;
+    }
+
+    .content-body p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 2;
+      color: #5f4b52;
+    }
+
+    .content-body p + p {
+      margin-top: 16px;
+    }
+
+    .highlight {
+      color: #ff9090;
+      font-weight: 600;
+    }
+
+    .mini-card {
+      margin-top: 28px;
+      border-radius: 28px;
+      border: 1px solid #ffe7e7;
+      padding: 20px;
+      background: #fff7f7;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+
+    .mini-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ff9090;
+      letter-spacing: 0.04em;
+    }
+
+    .mini-text {
+      margin-top: 12px;
+      font-size: 14px;
+      line-height: 1.9;
+      color: #715a61;
+    }
+
+    .bottom-note {
+      margin-top: 28px;
+      border: 1px solid #ffd9d9;
+      background: #fff5f5;
+      border-radius: 28px;
+      padding: 16px 20px;
+      font-size: 14px;
+      line-height: 1.9;
+      color: #82656c;
+    }
+
+    .gallery-frame {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      border: 1px solid #ffe6ea;
+      background: #fff8fa;
+      padding: 12px;
+    }
+
+    .gallery-stage {
+      position: relative;
+      height: 260px;
+      overflow: hidden;
+      border-radius: 24px;
+      background: #fff1f4;
+    }
+
+    .gallery-stage img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transform: scale(1.05);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .gallery-stage img.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .gallery-empty {
+      height: 100%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      color: #c793a0;
+      font-size: 16px;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .dots {
+      position: absolute;
+      left: 50%;
+      bottom: 14px;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(8px);
+      padding: 8px 12px;
+      border-radius: 999px;
+    }
+
+    .dots button {
+      width: 10px;
+      height: 10px;
+      border: none;
+      border-radius: 999px;
+      background: #f7c4cc;
+      cursor: pointer;
+      transition: transform 0.18s ease, background 0.18s ease;
+    }
+
+    .dots button.active {
+      background: #ff9090;
+    }
+
+    .gallery-tip {
+      margin-top: 18px;
+      font-size: 14px;
+      line-height: 1.9;
+      color: #82656c;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .photo-box {
+        width: 170px;
+        height: 200px;
+      }
+
+      .gallery-stage {
+        height: 280px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="floating">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="sparkles s1">✿</div>
+    <div class="sparkles s2">♡</div>
+    <div class="sparkles s3">☁</div>
+    <div class="sparkles s4">✧</div>
+    <div class="sparkles s5">🎀</div>
+  </div>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-icon">🎀</div>
+        <div>
+          <div class="brand-title">MIA YU</div>
+          <div class="brand-subtitle">Personal Website</div>
+        </div>
       </div>
 
-      <header className="sticky top-0 z-10 border-b border-[#ffe7ea] bg-white/85 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-full border border-[#ffd7de] bg-[#fff1f4] text-xl shadow-sm">
-              🎀
-            </div>
-            <div>
-              <div className="text-lg font-semibold tracking-wide text-[#ff9090]">
-                MIA YU
-              </div>
-              <div className="text-xs tracking-wide text-[#b5959c]">
-                Personal Website
-              </div>
-            </div>
-          </div>
-
-          <nav className="hidden gap-6 text-sm md:flex">
-            <a href="#about" className="hover:text-[#ff9090]">
-              About
-            </a>
-            <a href="#gallery" className="hover:text-[#ff9090]">
-              Gallery
-            </a>
-            <a href="#contact" className="hover:text-[#ff9090]">
-              Contact
-            </a>
-          </nav>
-        </div>
-      </header>
-
-      <main className="relative z-[1] mx-auto grid max-w-6xl gap-8 px-6 py-10 lg:grid-cols-[320px_1fr]">
-        <aside className="h-fit rounded-[32px] border border-[#ffe6ea] bg-white/95 p-6 shadow-[0_20px_50px_rgba(255,144,144,0.12)]">
-          <div className="flex flex-col items-center text-center">
-            <div className="relative mb-5 flex h-56 w-44 items-center justify-center overflow-hidden rounded-[30px] border border-[#ffe2e8] bg-[linear-gradient(180deg,#fff6f8_0%,#fff0f3_100%)] p-1">
-              {!profileImgError ? (
-                <img
-                  src="/profile.jpg"
-                  alt="Mia Yu"
-                  className="h-full w-full rounded-[26px] object-cover"
-                  onError={() => setProfileImgError(true)}
-                />
-              ) : (
-                <div className="flex h-full w-full items-center justify-center rounded-[26px] bg-white text-6xl">
-                  🎓
-                </div>
-              )}
-
-              <div className="absolute right-2 top-2 rounded-full bg-white/90 px-2 py-1 text-xs text-[#ff9090] shadow-sm">
-                ♡
-              </div>
-            </div>
-
-            <h1 className="text-3xl font-semibold italic tracking-wide text-[#3d3035]">
-              Mia Yu
-            </h1>
-            <p className="mt-2 text-sm text-[#9d7f86]">Freshwoman at SUFE</p>
-            <p className="mt-1 text-sm text-[#9d7f86]">Interested in AI Security</p>
-
-            <div className="mt-5 w-full rounded-[24px] border border-[#ffe9ec] bg-[#fff8f9] p-4 text-left text-sm text-[#715a61]">
-              <div className="space-y-2">
-                <div>🎀 Studying at SUFE as a first-year student ✩∀✩！！</div>
-                <div>💖 Reading, cooking, travelling ◟(˶&gt; ᎑ &lt;˶)◞</div>
-              </div>
-            </div>
-
-            <div className="mt-6 grid w-full gap-3">
-              <a
-                href="#about"
-                className="rounded-full bg-[#ff9090] px-4 py-2.5 text-center font-medium text-white shadow-[0_8px_18px_rgba(255,144,144,0.22)] transition hover:-translate-y-0.5"
-              >
-                About Me
-              </a>
-              <a
-                href="#gallery"
-                className="rounded-full border border-[#ffd4d4] bg-[#fff5f5] px-4 py-2.5 text-center font-medium text-[#ff9090] transition hover:-translate-y-0.5"
-              >
-                My Gallery
-              </a>
-            </div>
-
-            <div className="mt-6 flex flex-wrap justify-center gap-2" id="contact">
-              {socials.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="rounded-full border border-[#ffe4e4] bg-white px-3 py-1.5 text-sm text-[#ff9090] shadow-sm transition hover:-translate-y-0.5 hover:bg-[#fff7f7]"
-                >
-                  {item.label}
-                </a>
-              ))}
-            </div>
-
-            <p className="mt-5 text-xs text-[#c4a1a8]">Last updated: 2026/04</p>
-          </div>
-        </aside>
-
-        <section className="space-y-8">
-          <div
-            id="about"
-            className="overflow-hidden rounded-[36px] border border-[#ffe6ea] bg-white/95 shadow-[0_24px_60px_rgba(255,144,144,0.10)]"
-          >
-            <div className="flex items-center justify-between border-b border-[#fff0f0] bg-[linear-gradient(180deg,#fff7f9_0%,#fffdfd_100%)] px-7 py-5">
-              <div className="text-xs uppercase tracking-[0.28em] text-[#d7a4ad]">
-                About Me
-              </div>
-              <div className="rounded-full border border-[#ffe2e8] bg-white px-3 py-1 text-xs text-[#ff9090]">
-                soft pink mode
-              </div>
-            </div>
-
-            <div className="px-7 py-7">
-              <p className="text-[15px] leading-8 text-[#5f4b52]">
-                Hi, I&apos;m{" "}
-                <span className="font-semibold text-[#ff9090]">Mia Yu</span>. I am a
-                first-year student at{" "}
-                <span className="font-semibold text-[#ff9090]">SUFE</span>, and I&apos;m
-                currently interested in{" "}
-                <span className="font-semibold text-[#ff9090]">AI security</span>.
-              </p>
-
-              <p className="mt-4 text-[15px] leading-8 text-[#5f4b52]">
-                I&apos;m still at the beginning of my journey, so this website is mainly a
-                small personal space to introduce myself and record what I&apos;m learning.
-              </p>
-
-              <p className="mt-4 text-[15px] leading-8 text-[#5f4b52]">
-                Right now, I&apos;m learning step by step about open-source projects and
-                topics related to AI systems and security.
-              </p>
-
-              <div className="mt-7">
-                <div className="rounded-[28px] border border-[#ffe7e7] bg-[#fff7f7] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
-                  <div className="text-sm font-semibold tracking-wide text-[#ff9090]">
-                    Current Focus
-                  </div>
-                  <div className="mt-3 text-sm leading-7 text-[#715a61]">
-                    AI security, beginner-friendly open-source exploration, and building
-                    a clean personal online space.
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-7 rounded-[28px] border border-[#ffd9d9] bg-[#fff5f5] px-5 py-4 text-sm leading-7 text-[#82656c]">
-                This page is intentionally simple and soft. I can keep updating it little
-                by little as I learn more.
-              </div>
-            </div>
-          </div>
-
-          <div
-            id="gallery"
-            className="overflow-hidden rounded-[36px] border border-[#ffe6ea] bg-white/95 shadow-[0_24px_60px_rgba(255,144,144,0.10)]"
-          >
-            <div className="flex items-center justify-between border-b border-[#fff0f0] bg-[linear-gradient(180deg,#fff7f9_0%,#fffdfd_100%)] px-7 py-5">
-              <div className="text-xs uppercase tracking-[0.28em] text-[#d7a4ad]">
-                Gallery
-              </div>
-              <div className="rounded-full border border-[#ffe2e8] bg-white px-3 py-1 text-xs text-[#ff9090]">
-                10 photos · auto sliding
-              </div>
-            </div>
-
-            <div className="px-7 py-7">
-              <div className="relative overflow-hidden rounded-[30px] border border-[#ffe6ea] bg-[#fff8fa] p-3">
-                <div className="relative h-[260px] overflow-hidden rounded-[24px] bg-[#fff1f4] md:h-[360px]">
-                  {gallery.map((src, index) => (
-                    <img
-                      key={src}
-                      src={src}
-                      alt={`gallery-${index + 1}`}
-                      className={`absolute inset-0 h-full w-full object-cover transition-all duration-700 ${
-                        current === index
-                          ? "scale-100 opacity-100"
-                          : "scale-105 opacity-0"
-                      }`}
-                      onError={(e) => {
-                        e.currentTarget.style.display = "none";
-                      }}
-                    />
-                  ))}
-
-                  <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-2 rounded-full bg-white/80 px-3 py-2 backdrop-blur">
-                    {gallery.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setCurrent(index)}
-                        className={`h-2.5 w-2.5 rounded-full transition ${
-                          current === index ? "bg-[#ff9090]" : "bg-[#f7c4cc]"
-                        }`}
-                        aria-label={`Go to slide ${index + 1}`}
-                        type="button"
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
+      <nav class="nav">
+        <a href="#about">About</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
-  );
-}
+  </header>
+
+  <main class="container">
+    <aside class="sidebar">
+      <div class="sidebar-inner">
+        <div class="photo-box">
+          <img
+            src="profile.jpg"
+            alt="Mia Yu"
+            onerror="this.style.display='none'; document.getElementById('photo-fallback').style.display='flex';"
+          />
+          <div class="photo-fallback" id="photo-fallback">🎓</div>
+          <div class="photo-badge">♡</div>
+        </div>
+
+        <h1 class="name">Mia Yu</h1>
+        <div class="subline">Freshwoman at SUFE</div>
+        <div class="subline">Interested in AI Security</div>
+
+        <div class="intro-list">
+          <div class="intro-list-inner">
+            <div>🎀 Studying at SUFE as a first-year student ✩∀✩！！</div>
+            <div>💖 Reading, cooking, travelling ◟(˶&gt; ᎑ &lt;˶)◞</div>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <a class="btn-main" href="#about">About Me</a>
+          <a class="btn-sub" href="#gallery">My Gallery</a>
+        </div>
+
+        <div class="socials" id="contact">
+          <a href="https://github.com/MiaYuDAYTOY" target="_blank">GitHub</a>
+          <a href="mailto:yyu61965@gmail.com">Email</a>
+        </div>
+
+        <div class="update">Last updated: 2026/04</div>
+      </div>
+    </aside>
+
+    <section class="content-wrap">
+      <section class="content-card" id="about">
+        <div class="content-head">
+          <span>About Me</span>
+          <div class="head-tag">soft pink mode</div>
+        </div>
+
+        <div class="content-body">
+          <p>
+            Hi, I'm <span class="highlight">Mia Yu</span>. I am a first-year student at
+            <span class="highlight">SUFE</span>, and I'm currently interested in
+            <span class="highlight">AI security</span>.
+          </p>
+
+          <p>
+            I'm still at the beginning of my journey, so this website is mainly a small personal
+            space to introduce myself and record what I'm learning.
+          </p>
+
+          <p>
+            Right now, I'm learning step by step about open-source projects and topics related to
+            AI systems and security.
+          </p>
+
+          <div class="mini-card">
+            <div class="mini-title">Current Focus</div>
+            <div class="mini-text">
+              AI security, beginner-friendly open-source exploration, and building a clean
+              personal online space.
+            </div>
+          </div>
+
+          <div class="bottom-note">
+            This page is intentionally simple and soft. I can keep updating it little by little as
+            I learn more.
+          </div>
+        </div>
+      </section>
+
+      <section class="content-card" id="gallery">
+        <div class="content-head">
+          <span>Gallery</span>
+          <div class="head-tag">auto sliding</div>
+        </div>
+
+        <div class="content-body">
+          <div class="gallery-frame">
+            <div class="gallery-stage" id="gallery-stage">
+              <img src="gallery1.jpg" alt="gallery 1" />
+              <img src="gallery2.jpg" alt="gallery 2" />
+              <img src="gallery3.jpg" alt="gallery 3" />
+              <img src="gallery4.jpg" alt="gallery 4" />
+              <img src="gallery5.jpg" alt="gallery 5" />
+              <img src="gallery6.jpg" alt="gallery 6" />
+              <img src="gallery7.jpg" alt="gallery 7" />
+              <img src="gallery8.jpg" alt="gallery 8" />
+              <img src="gallery9.jpg" alt="gallery 9" />
+              <img src="gallery10.jpg" alt="gallery 10" />
+
+              <div class="gallery-empty" id="gallery-empty">
+                No gallery images found yet.<br />
+                Upload gallery1.jpg, gallery2.jpg, gallery3.jpg...
+              </div>
+
+              <div class="dots" id="gallery-dots"></div>
+            </div>
+          </div>
+
+          <div class="gallery-tip">
+            Put your images in the same folder as <span class="highlight">index.html</span> and
+            name them <span class="highlight">gallery1.jpg</span>,
+            <span class="highlight">gallery2.jpg</span>,
+            <span class="highlight">gallery3.jpg</span>...
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const galleryStage = document.getElementById("gallery-stage");
+    const emptyState = document.getElementById("gallery-empty");
+    const dotsWrap = document.getElementById("gallery-dots");
+    let slides = Array.from(galleryStage.querySelectorAll("img"));
+    let validSlides = [];
+    let current = 0;
+    let timer = null;
+
+    function showSlide(index) {
+      validSlides.forEach((img, i) => {
+        img.classList.toggle("active", i === index);
+      });
+
+      const dots = Array.from(dotsWrap.querySelectorAll("button"));
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === index);
+      });
+
+      current = index;
+    }
+
+    function startAutoSlide() {
+      if (validSlides.length <= 1) return;
+      if (timer) clearInterval(timer);
+
+      timer = setInterval(() => {
+        const next = (current + 1) % validSlides.length;
+        showSlide(next);
+      }, 2600);
+    }
+
+    function initGallery() {
+      let checked = 0;
+
+      if (slides.length === 0) {
+        emptyState.style.display = "flex";
+        dotsWrap.style.display = "none";
+        return;
+      }
+
+      slides.forEach((img) => {
+        const test = new Image();
+
+        test.onload = () => {
+          validSlides.push(img);
+          checked++;
+          if (checked === slides.length) finalizeGallery();
+        };
+
+        test.onerror = () => {
+          img.remove();
+          checked++;
+          if (checked === slides.length) finalizeGallery();
+        };
+
+        test.src = img.getAttribute("src");
+      });
+    }
+
+    function finalizeGallery() {
+      slides = validSlides;
+
+      if (slides.length === 0) {
+        emptyState.style.display = "flex";
+        dotsWrap.style.display = "none";
+        return;
+      }
+
+      emptyState.style.display = "none";
+      dotsWrap.innerHTML = "";
+
+      slides.forEach((_, index) => {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.setAttribute("aria-label", "Go to slide " + (index + 1));
+        dot.addEventListener("click", () => {
+          showSlide(index);
+          startAutoSlide();
+        });
+        dotsWrap.appendChild(dot);
+      });
+
+      showSlide(0);
+      startAutoSlide();
+    }
+
+    initGallery();
+  </script>
+</body>
+</html>
