@@ -12,17 +12,26 @@ export default function PinkPersonalHomepage() {
       "/gallery2.jpg",
       "/gallery3.jpg",
       "/gallery4.jpg",
+      "/gallery5.jpg",
+      "/gallery6.jpg",
+      "/gallery7.jpg",
+      "/gallery8.jpg",
+      "/gallery9.jpg",
+      "/gallery10.jpg",
     ],
     []
   );
 
   const [current, setCurrent] = useState(0);
+  const [profileImgError, setProfileImgError] = useState(false);
 
   useEffect(() => {
     if (gallery.length <= 1) return;
+
     const timer = window.setInterval(() => {
       setCurrent((prev) => (prev + 1) % gallery.length);
     }, 2600);
+
     return () => window.clearInterval(timer);
   }, [gallery]);
 
@@ -45,15 +54,25 @@ export default function PinkPersonalHomepage() {
               🎀
             </div>
             <div>
-              <div className="text-lg font-semibold tracking-wide text-[#ff9090]">MIA YU</div>
-              <div className="text-xs tracking-wide text-[#b5959c]">Personal Website</div>
+              <div className="text-lg font-semibold tracking-wide text-[#ff9090]">
+                MIA YU
+              </div>
+              <div className="text-xs tracking-wide text-[#b5959c]">
+                Personal Website
+              </div>
             </div>
           </div>
 
           <nav className="hidden gap-6 text-sm md:flex">
-            <a href="#about" className="hover:text-[#ff9090]">About</a>
-            <a href="#gallery" className="hover:text-[#ff9090]">Gallery</a>
-            <a href="#contact" className="hover:text-[#ff9090]">Contact</a>
+            <a href="#about" className="hover:text-[#ff9090]">
+              About
+            </a>
+            <a href="#gallery" className="hover:text-[#ff9090]">
+              Gallery
+            </a>
+            <a href="#contact" className="hover:text-[#ff9090]">
+              Contact
+            </a>
           </nav>
         </div>
       </header>
@@ -62,28 +81,34 @@ export default function PinkPersonalHomepage() {
         <aside className="h-fit rounded-[32px] border border-[#ffe6ea] bg-white/95 p-6 shadow-[0_20px_50px_rgba(255,144,144,0.12)]">
           <div className="flex flex-col items-center text-center">
             <div className="relative mb-5 flex h-56 w-44 items-center justify-center overflow-hidden rounded-[30px] border border-[#ffe2e8] bg-[linear-gradient(180deg,#fff6f8_0%,#fff0f3_100%)] p-1">
-              <img
-                src="/profile.jpg"
-                alt="Mia Yu"
-                className="h-full w-full rounded-[26px] object-cover"
-                onError={(e) => {
-                  e.currentTarget.style.display = "none";
-                  const fallback = e.currentTarget.nextElementSibling;
-                  if (fallback) fallback.style.display = "flex";
-                }}
-              />
-              <div className="hidden h-full w-full items-center justify-center rounded-[26px] bg-white text-6xl">🎓</div>
-              <div className="absolute right-2 top-2 rounded-full bg-white/90 px-2 py-1 text-xs text-[#ff9090] shadow-sm">♡</div>
+              {!profileImgError ? (
+                <img
+                  src="/profile.jpg"
+                  alt="Mia Yu"
+                  className="h-full w-full rounded-[26px] object-cover"
+                  onError={() => setProfileImgError(true)}
+                />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center rounded-[26px] bg-white text-6xl">
+                  🎓
+                </div>
+              )}
+
+              <div className="absolute right-2 top-2 rounded-full bg-white/90 px-2 py-1 text-xs text-[#ff9090] shadow-sm">
+                ♡
+              </div>
             </div>
 
-            <h1 className="text-3xl font-semibold italic tracking-wide text-[#3d3035]">Mia Yu</h1>
+            <h1 className="text-3xl font-semibold italic tracking-wide text-[#3d3035]">
+              Mia Yu
+            </h1>
             <p className="mt-2 text-sm text-[#9d7f86]">Freshwoman at SUFE</p>
             <p className="mt-1 text-sm text-[#9d7f86]">Interested in AI Security</p>
 
             <div className="mt-5 w-full rounded-[24px] border border-[#ffe9ec] bg-[#fff8f9] p-4 text-left text-sm text-[#715a61]">
               <div className="space-y-2">
                 <div>🎀 Studying at SUFE as a first-year student ✩∀✩！！</div>
-                <div>💖 Reading,cooking,travelling◟(˶> ᎑ <˶)◞</div>
+                <div>💖 Reading, cooking, travelling ◟(˶&gt; ᎑ &lt;˶)◞</div>
               </div>
             </div>
 
@@ -119,49 +144,69 @@ export default function PinkPersonalHomepage() {
         </aside>
 
         <section className="space-y-8">
-          <div id="about" className="overflow-hidden rounded-[36px] border border-[#ffe6ea] bg-white/95 shadow-[0_24px_60px_rgba(255,144,144,0.10)]">
+          <div
+            id="about"
+            className="overflow-hidden rounded-[36px] border border-[#ffe6ea] bg-white/95 shadow-[0_24px_60px_rgba(255,144,144,0.10)]"
+          >
             <div className="flex items-center justify-between border-b border-[#fff0f0] bg-[linear-gradient(180deg,#fff7f9_0%,#fffdfd_100%)] px-7 py-5">
-              <div className="text-xs uppercase tracking-[0.28em] text-[#d7a4ad]">About Me</div>
-              <div className="rounded-full border border-[#ffe2e8] bg-white px-3 py-1 text-xs text-[#ff9090]">soft pink mode</div>
+              <div className="text-xs uppercase tracking-[0.28em] text-[#d7a4ad]">
+                About Me
+              </div>
+              <div className="rounded-full border border-[#ffe2e8] bg-white px-3 py-1 text-xs text-[#ff9090]">
+                soft pink mode
+              </div>
             </div>
 
             <div className="px-7 py-7">
               <p className="text-[15px] leading-8 text-[#5f4b52]">
-                Hi, I&apos;m <span className="font-semibold text-[#ff9090]">Mia Yu</span>. I am a first-year student at <span className="font-semibold text-[#ff9090]">SUFE</span>, and I&apos;m currently interested in <span className="font-semibold text-[#ff9090]">AI security</span>.
-              </p>
-              <p className="mt-4 text-[15px] leading-8 text-[#5f4b52]">
-                I&apos;m still at the beginning of my journey, so this website is mainly a small personal space to introduce myself and record what I&apos;m learning.
-              </p>
-              <p className="mt-4 text-[15px] leading-8 text-[#5f4b52]">
-                Right now, I&apos;m learning step by step about open-source projects and topics related to AI systems and security.
+                Hi, I&apos;m{" "}
+                <span className="font-semibold text-[#ff9090]">Mia Yu</span>. I am a
+                first-year student at{" "}
+                <span className="font-semibold text-[#ff9090]">SUFE</span>, and I&apos;m
+                currently interested in{" "}
+                <span className="font-semibold text-[#ff9090]">AI security</span>.
               </p>
 
-              <div className="mt-7 grid gap-4 md:grid-cols-2">
+              <p className="mt-4 text-[15px] leading-8 text-[#5f4b52]">
+                I&apos;m still at the beginning of my journey, so this website is mainly a
+                small personal space to introduce myself and record what I&apos;m learning.
+              </p>
+
+              <p className="mt-4 text-[15px] leading-8 text-[#5f4b52]">
+                Right now, I&apos;m learning step by step about open-source projects and
+                topics related to AI systems and security.
+              </p>
+
+              <div className="mt-7">
                 <div className="rounded-[28px] border border-[#ffe7e7] bg-[#fff7f7] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
-                  <div className="text-sm font-semibold tracking-wide text-[#ff9090]">Current Focus</div>
-                  <div className="mt-3 text-sm leading-7 text-[#715a61]">
-                    AI security, beginner-friendly open-source exploration, and building a clean personal online space.
+                  <div className="text-sm font-semibold tracking-wide text-[#ff9090]">
+                    Current Focus
                   </div>
-                </div>
-
-                <div className="rounded-[28px] border border-[#ffe7e7] bg-[#fffafa] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
-                  <div className="text-sm font-semibold tracking-wide text-[#ff9090]">NEWS</div>
                   <div className="mt-3 text-sm leading-7 text-[#715a61]">
-                    None。
+                    AI security, beginner-friendly open-source exploration, and building
+                    a clean personal online space.
                   </div>
                 </div>
               </div>
 
               <div className="mt-7 rounded-[28px] border border-[#ffd9d9] bg-[#fff5f5] px-5 py-4 text-sm leading-7 text-[#82656c]">
-                This page is intentionally simple and soft. I can keep updating it little by little as I learn more.
+                This page is intentionally simple and soft. I can keep updating it little
+                by little as I learn more.
               </div>
             </div>
           </div>
 
-          <div id="gallery" className="overflow-hidden rounded-[36px] border border-[#ffe6ea] bg-white/95 shadow-[0_24px_60px_rgba(255,144,144,0.10)]">
+          <div
+            id="gallery"
+            className="overflow-hidden rounded-[36px] border border-[#ffe6ea] bg-white/95 shadow-[0_24px_60px_rgba(255,144,144,0.10)]"
+          >
             <div className="flex items-center justify-between border-b border-[#fff0f0] bg-[linear-gradient(180deg,#fff7f9_0%,#fffdfd_100%)] px-7 py-5">
-              <div className="text-xs uppercase tracking-[0.28em] text-[#d7a4ad]">Gallery</div>
-              <div className="rounded-full border border-[#ffe2e8] bg-white px-3 py-1 text-xs text-[#ff9090]">auto sliding</div>
+              <div className="text-xs uppercase tracking-[0.28em] text-[#d7a4ad]">
+                Gallery
+              </div>
+              <div className="rounded-full border border-[#ffe2e8] bg-white px-3 py-1 text-xs text-[#ff9090]">
+                10 photos · auto sliding
+              </div>
             </div>
 
             <div className="px-7 py-7">
@@ -173,7 +218,9 @@ export default function PinkPersonalHomepage() {
                       src={src}
                       alt={`gallery-${index + 1}`}
                       className={`absolute inset-0 h-full w-full object-cover transition-all duration-700 ${
-                        current === index ? "opacity-100 scale-100" : "opacity-0 scale-105"
+                        current === index
+                          ? "scale-100 opacity-100"
+                          : "scale-105 opacity-0"
                       }`}
                       onError={(e) => {
                         e.currentTarget.style.display = "none";
@@ -190,13 +237,12 @@ export default function PinkPersonalHomepage() {
                           current === index ? "bg-[#ff9090]" : "bg-[#f7c4cc]"
                         }`}
                         aria-label={`Go to slide ${index + 1}`}
+                        type="button"
                       />
                     ))}
                   </div>
                 </div>
               </div>
-
-              
             </div>
           </div>
         </section>
